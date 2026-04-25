@@ -1,12 +1,11 @@
----
-- name: Change_MOTD
+- name: Change MOTD with variable
   hosts: all
   become: yes
   vars:
-    motd_message: "Hello in brainless world!\nUnauthorized access is prohibited.\n"
+    motd_message: "Hello in brainless world \n"
 
   tasks:
-    - name: Set custom MOTD
+    - name: Set MOTD
       copy:
         content: |
           {{ motd_message }}
@@ -16,15 +15,15 @@
         mode: '0644'
         backup: yes
 
-    - name: Ensure SSH uses MOTD (for sshd_config)
+    - name: Ensure_SSH_uses_MOTD
       lineinfile:
         path: /etc/ssh/sshd_config
         regexp: '^#?PrintMotd'
         line: 'PrintMotd yes'
-      notify: restart sshd
+      notify: restart ssh
 
   handlers:
-    - name: restart sshd
+    - name: restart_ssh
       systemd:
-        name: sshd
+        name: ssh
         state: restarted

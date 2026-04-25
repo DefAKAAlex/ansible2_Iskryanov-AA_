@@ -1,20 +1,27 @@
----
 - name: Tuned_inst_run
-  hosts: all
+  hosts: localhost
   become: yes
 
   tasks:
-    - name: Install_package
-      package:
+    - name: Install package tuned
+      apt:
         name: tuned
         state: present
-      notify:
-        - start and enable tuned
+        update_cache: yes
+      when: ansible_os_family == "Debian"
 
-  handlers:
-    - name: start_Tuned
+    - name: Start_tuned_service
       systemd:
         name: tuned
         state: started
         enabled: yes
         daemon_reload: yes
+
+    - name: Verify_run
+      command: systemctl is-active tuned
+      register: tuned_status
+      changed_when: false
+
+    - name: Show_status
+      debug:
+        msg: "Tuned service is {{ tuned_status.stdout }}"
