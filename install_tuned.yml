@@ -1,0 +1,20 @@
+---
+- name: Tuned_inst_run
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install_package
+      package:
+        name: tuned
+        state: present
+      notify:
+        - start and enable tuned
+
+  handlers:
+    - name: start_Tuned
+      systemd:
+        name: tuned
+        state: started
+        enabled: yes
+        daemon_reload: yes

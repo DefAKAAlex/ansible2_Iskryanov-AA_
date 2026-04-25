@@ -1,0 +1,35 @@
+---
+- name: Download_extract_Kafka
+  hosts: all
+  become: yes
+  vars:
+    download_url: "https://archive.apache.org/dist/kafka/3.6.0/kafka_2.13-3.6.0.tgz"
+    archive_name: "kafka_2.13-3.6.0.tgz"
+    extract_path: "/opt/kafka"
+
+  tasks:
+    - name: Create_dir
+      file:
+        path: "{{ extract_path }}"
+        state: directory
+        mode: '0755'
+
+    - name: Download_archive
+      get_url:
+        url: "{{ download_url }}"
+        dest: "/tmp/{{ archive_name }}"
+        timeout: 60
+        validate_certs: no
+
+    - name: Extract archive
+      unarchive:
+        src: "/tmp/{{ archive_name }}"
+        dest: "{{ extract_path }}"
+        remote_src: yes
+        extra_opts: [--strip-components=1]
+        creates: "{{ extract_path }}/bin"
+
+    - name: Del_archive
+      file:
+        path: "/tmp/{{ archive_name }}"
+        state: absent
