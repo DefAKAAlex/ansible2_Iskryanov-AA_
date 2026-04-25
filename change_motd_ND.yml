@@ -9,10 +9,10 @@
       copy:
         content: |
           ========================================
-          Privet! {{ ansible_hostname }}
+          Privet v {{ ansible_hostname }}
           IP Address: {{ ansible_default_ipv4.address }}
           ========================================
-          {{ good_wish }}
+          {{ motd_message }}
           ========================================
         dest: /etc/motd
         owner: root
