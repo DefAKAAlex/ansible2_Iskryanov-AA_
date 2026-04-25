@@ -31,7 +31,7 @@
   when: ansible_facts.ufw.active == true
   ignore_errors: yes
 
-- name: Check if website is accessible
+- name: Check_website_accessible
   uri:
     url: "http://{{ ansible_default_ipv4.address }}"
     status_code: 200
@@ -39,7 +39,3 @@
   register: website_status
   failed_when: website_status.status != 200
   delegate_to: localhost  # Проверяем с control node
-
-- name: Display website content (for verification)
-  debug:
-    msg: "Website is accessible at http://{{ ansible_default_ipv4.address }}! Status code: {{ website_status.status }}"
