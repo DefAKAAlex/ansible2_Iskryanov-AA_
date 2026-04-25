@@ -201,4 +201,4 @@ Vary: Accept-Encoding
 Content-Type: text/html
 ```
 
-![скрин сайта](https://www.example.com/image.jpg)
+![скрин сайта](https://github.com/DefAKAAlex/ansible2_Iskryanov-AA_/blob/main/ansible_apache/image1.png)
