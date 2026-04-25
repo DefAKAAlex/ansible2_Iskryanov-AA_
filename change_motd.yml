@@ -1,11 +1,11 @@
-- name: Change MOTD with variable
+- name: Change_MOTD
   hosts: all
   become: yes
   vars:
     motd_message: "Hello in brainless world \n"
 
   tasks:
-    - name: Set MOTD
+    - name: Set_MOTD
       copy:
         content: |
           {{ motd_message }}

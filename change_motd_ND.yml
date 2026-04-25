@@ -1,0 +1,28 @@
+- name: Change_MOTD_NiceDay
+  hosts: all
+  become: yes
+  vars:
+    motd_message: "Hello in brainless world, SysAdmin! Nice Day? \n"
+
+  tasks:
+    - name: Custom_MOTD_IP_hostname
+      copy:
+        content: |
+          ========================================
+          Privet! {{ ansible_hostname }}
+          IP Address: {{ ansible_default_ipv4.address }}
+          ========================================
+          {{ good_wish }}
+          ========================================
+        dest: /etc/motd
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
+
+    - name: Print_sysinfo
+      debug:
+        msg:
+          - "Hostname: {{ ansible_hostname }}"
+          - "IP Address: {{ ansible_default_ipv4.address }}"
+          - "All IPs: {{ ansible_all_ipv4_addresses }}"
