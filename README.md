@@ -1,7 +1,6 @@
-#Домашнее задание к занятию "Ansible2" - Искрянов А.В.
+# Домашнее задание к занятию "Ansible2" - Искрянов А.В.
 
-
-##Задание 1
+## Задание 1
 
 ```
 i-def@def-sysinfo:~/VS-Pupil/sdvps-homeworks/ansible2_Iskryanov-AA_$ ansible-playbook -i inventory.ini dwn_extr.yml
